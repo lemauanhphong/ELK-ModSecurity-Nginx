@@ -1,4 +1,13 @@
 services:
+  webgoat:
+    image: webgoat/webgoat
+  modsecurity-crs:
+    build: modsecurity_crs
+    volumes:
+      - ./modsecurity_crs/nginx.conf:/etc/nginx/conf.d/webgoat.conf
+      - ./logs/nginx:/var/log/nginx
+    ports:
+      - 80:80
   elasticsearch:
     image: elasticsearch:7.16.1
     container_name: es
@@ -23,7 +32,7 @@ services:
       LS_JAVA_OPTS: "-Xms512m -Xmx512m"
     volumes:
       - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
-      - ./logstash/nginx.log:/home/nginx.log
+      - ./logs/nginx:/home/nginx
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"

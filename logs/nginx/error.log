@@ -1,0 +1,2 @@
+2024/05/03 14:46:02 [warn] 1#1: "ssl_stapling" ignored, issuer certificate not found for certificate "/etc/nginx/conf/server.crt"
+2024/05/03 14:46:02 [notice] 1#1: ModSecurity-nginx v1.0.3 (rules loaded inline/local/remote: 0/797/0)
