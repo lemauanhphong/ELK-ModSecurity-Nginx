@@ -2,10 +2,15 @@ services:
   webgoat:
     image: webgoat/webgoat
   modsecurity-crs:
-    build: modsecurity_crs
+    image: owasp/modsecurity-crs:nginx-alpine
     volumes:
       - ./modsecurity_crs/nginx.conf:/etc/nginx/conf.d/webgoat.conf
-      - ./logs/nginx:/var/log/nginx
+      - ./logs:/var/log
+    environment:
+      MODSEC_AUDIT_LOG: /var/log/modsec/audit.log
+      MODSEC_AUDIT_LOG_FORMAT: json
+      ACCESSLOG: /var/log/nginx/access.log 
+      ERRORLOG: /var/log/nginx/error.log
     ports:
       - 80:80
   elasticsearch:
@@ -32,7 +37,9 @@ services:
       LS_JAVA_OPTS: "-Xms512m -Xmx512m"
     volumes:
       - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
-      - ./logs/nginx:/home/nginx
+      - ./logstash/pipeline/logstash-modsec.config:/usr/share/logstash/pipeline/logstash-modsec.config
+      - ./logs:/home
+      
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"
@@ -42,7 +49,7 @@ services:
       - elasticsearch
     networks:
       - elastic
-    command: logstash -f /usr/share/logstash/pipeline/logstash-nginx.config
+    command: logstash --debug -f '/usr/share/logstash/pipeline/logstash-{nginx,modsec}.config'
   kibana:
     image: kibana:7.16.1
     container_name: kib
