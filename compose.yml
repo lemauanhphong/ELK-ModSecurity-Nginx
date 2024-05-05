@@ -1,6 +1,14 @@
 services:
   webgoat:
     image: webgoat/webgoat
+    user: root
+    privileged: true
+    entrypoint: /entrypoint.sh
+    volumes:
+      - /sys/kernel/debug/:/sys/kernel/debug/
+      - ./ebpf/artifacts-x86_64/non-GPL/Events/EventsTrace/EventsTrace:/usr/bin/EventsTrace
+      - ./webgoat/entrypoint.sh:/entrypoint.sh
+      - ./logs/webgoat:/var/log/webgoat
   modsecurity-crs:
     image: owasp/modsecurity-crs:nginx-alpine
     volumes:
@@ -9,7 +17,7 @@ services:
     environment:
       MODSEC_AUDIT_LOG: /var/log/modsec/audit.log
       MODSEC_AUDIT_LOG_FORMAT: json
-      ACCESSLOG: /var/log/nginx/access.log 
+      ACCESSLOG: /var/log/nginx/access.log
       ERRORLOG: /var/log/nginx/error.log
     ports:
       - 80:80
@@ -39,7 +47,6 @@ services:
       - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
       - ./logstash/pipeline/logstash-modsec.config:/usr/share/logstash/pipeline/logstash-modsec.config
       - ./logs:/home
-      
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"
