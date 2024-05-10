@@ -46,6 +46,7 @@ services:
     volumes:
       - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
       - ./logstash/pipeline/logstash-modsec.config:/usr/share/logstash/pipeline/logstash-modsec.config
+      - ./logstash/pipeline/logstash-webgoat-eventstrace.config:/usr/share/logstash/pipeline/logstash-webgoat-eventstrace.config
       - ./logs:/home
     ports:
       - "5000:5000/tcp"
@@ -56,7 +57,7 @@ services:
       - elasticsearch
     networks:
       - elastic
-    command: logstash --debug -f '/usr/share/logstash/pipeline/logstash-{nginx,modsec}.config'
+    command: logstash --debug -f '/usr/share/logstash/pipeline/logstash-{nginx,modsec,webgoat-eventstrace}.config'
   kibana:
     image: kibana:7.16.1
     container_name: kib
