@@ -13,7 +13,7 @@ services:
     image: owasp/modsecurity-crs:nginx-alpine
     volumes:
       - ./modsecurity_crs/nginx.conf:/etc/nginx/templates/conf.d/default.conf.template
-      - ./logs/nginx:/var/log/nginx
+      - ./logs:/var/log
     environment:
       BACKEND: http://webgoat:8080
       MODSEC_AUDIT_LOG: /var/log/modsec/audit.log
