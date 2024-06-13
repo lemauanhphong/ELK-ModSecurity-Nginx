@@ -24,5 +24,7 @@ Navigate back to the root of the repository and run the services using Docker Co
 
 ```sh
 cd ..
+touch ./logs/nginx/{access.log,error.log}
+chmod 777 ./logs/nginx/{access.log,error.log}
 docker compose up --build
 ```
