@@ -17,7 +17,7 @@
 
 # (Required)
 # Rule name, must be unique
-name: Attack detected
+name: SQLi attack detected
 
 # (Required)
 # Type of alert.
