@@ -71,7 +71,7 @@ services:
       - elastic
   elastalert2:
     image: jertel/elastalert2
-    volumnes:
+    volumes:
       - ./elastalert2/elastalert.yml:/opt/elastalert/config.yaml
       - ./elastalert2/rules:/opt/elastalert/rules
     networks:
