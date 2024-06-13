@@ -69,6 +69,14 @@ services:
       - elasticsearch
     networks:
       - elastic
+  elastalert2:
+    image: jertel/elastalert2
+    volumnes:
+      - ./elastalert2/elastalert.yml:/opt/elastalert/config.yaml
+      - ./elastalert2/rules:/opt/elastalert/rules
+    networks:
+      - elastic
+    restart: always
 networks:
   elastic:
     driver: bridge
