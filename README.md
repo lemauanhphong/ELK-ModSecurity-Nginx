@@ -18,13 +18,19 @@ cd ebpf
 make build ARCH=x86_64
 ```
 
-**3. Run the services**
+**3. Create log files**
 
-Navigate back to the root of the repository and run the services using Docker Compose:
+Navigate back to the root of the repository and run the script to create the log files.
 
 ```sh
 cd ..
-touch ./logs/nginx/{access.log,error.log} ./logs/modsec/audit.log
-chmod 777 ./logs/ -R
+./create_log_files.sh
+```
+
+**4. Run the services**
+
+Run the services using Docker Compose:
+
+```sh
 docker compose up --build
 ```
