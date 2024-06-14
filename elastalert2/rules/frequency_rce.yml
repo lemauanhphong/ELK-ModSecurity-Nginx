@@ -43,11 +43,16 @@ timeframe:
 # For more info: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl.html
 filter:
 - query:
-    regexp:
-      filename.keyword:
-        value: "^(\/home|\/tmp)"
-        flags: "ALL"
-        case_insensitive: True
+    bool:
+      should:
+        wildcard:
+          filename:
+            value: "*tmp*"
+            case_insensitive: True
+        wildcard:
+          filename:
+            value: "*home*"
+            case_insensitive: True
 
 alert:
 - "telegram"
