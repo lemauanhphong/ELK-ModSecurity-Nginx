@@ -1,8 +1,5 @@
 # ELK-ModSecurity-Nginx
 
-## Slide
-[https://www.canva.com/design/DAGDhiy1gf0/2V4PkfYPXrivlDYAZk7puw/edit](https://www.canva.com/design/DAGDhiy1gf0/2V4PkfYPXrivlDYAZk7puw/edit)
-
 ## Usage
 
 **1. Clone the repository**
